@@ -1,0 +1,19 @@
+version: "3"
+services:
+  opencc:
+    build: .
+    volumes:
+      - ./data/config:/usr/local/share/gocc/config/
+      - ./data/dictionary:/usr/local/share/gocc/dictionary/
+    expose:
+      - 8080
+    networks:
+      - web
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.opencc.rule=Host(`string.tdccc.com.tw`)"
+      - "traefik.http.routers.opencc.entrypoints=web"
+
+networks:
+  web:
+    external: true
